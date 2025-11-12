@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoRep | Repuestos & Accesorios para Moto</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__content">
+      <div class="logo">
+        <img src="imagenes/logo1.png" alt="MotoParts Logo">
+        <h1>MotoRep</h1>
+      </div>
+
+      <nav class="nav">
+        <ul>
+          <li><a href="#inicio" class="active">Inicio</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO (Carrusel de imágenes) -->
+<section id="inicio" class="hero">
+  <div class="carousel">
+    <div class="slides">
+      <div class="slide active" style="background-image: url('imagenes/imagen1.png');"></div>
+      <div class="slide" style="background-image: url('imagenes/imagen2.png');"></div>
+      <div class="slide" style="background-image: url('imagenes/imagen3.png');"></div>
+            <div class="slide" style="background-image: url('imagenes/imagen4.jpg');"></div>
+
+    </div>
+    <div class="hero__content">
+      <h2>Repuestos y accesorios <br> para todas las marcas de motos</h2>
+      <p>Calidad, rendimiento y confianza. Todo en un solo lugar.</p>
+      <a href="#productos" class="btn">Explorar productos</a>
+    </div>
+  </div>
+</section>
+
+
+  <!-- PRODUCTOS -->
+  <section id="productos" class="productos section">
+    <div class="container">
+      <h2 class="section__title">Productos Destacados</h2>
+
+      <div class="productos__grid">
+        <div class="producto">
+          <img src="imagenes/aceites.webp" alt="Aceite para motor">
+          <h3>Aceite para Motor</h3>
+          <p>Lubricante sintético de alta calidad para un mejor rendimiento.</p>
+        </div>
+
+        <div class="producto">
+          <img src="imagenes/llanta3.webp" alt="Llanta de moto">
+          <h3>Llantas</h3>
+          <p>Gran agarre y durabilidad en todas las condiciones.</p>
+        </div>
+
+        <div class="producto">
+          <img src="imagenes/bandas.webp" alt="Casco de seguridad">
+          <h3>Bandas</h3>
+          <p>Bandas resistentes, máximo agarre y durabilidad garantizada.</p>
+        </div>
+
+        <div class="producto">
+          <img src="imagenes/bujia.png" alt="Bujía de encendido">
+          <h3>Bujías</h3>
+          <p>Encendido eficiente y menor consumo de combustible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="nosotros section">
+    <div class="container">
+      <div class="nosotros__content">
+        <h2 class="section__title">Sobre Nosotros</h2>
+        <p>
+          En <strong>MotoRep</strong> somos una empresa con más de 20 años de experiencia
+          ofreciendo repuestos originales y alternativos para motocicletas de todas las marcas.
+          Nuestra misión es mantener tu moto en óptimas condiciones con productos de confianza
+          y un servicio técnico especializado.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contacto section">
+    <div class="container">
+      <h2 class="section__title">Contáctanos</h2>
+      <form class="contacto__form" id="whatsappForm">
+  <input type="text" id="nombre" placeholder="Tu nombre" required>
+  <input type="email" id="correo" placeholder="Correo electrónico" required>
+  <textarea id="mensaje" placeholder="Mensaje" required></textarea>
+  <button type="submit" class="btn">Enviar mensaje</button>
+</form>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 MotoParts. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function showNextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+
+  setInterval(showNextSlide, 3000); // cambia cada 5 segundos
+</script>
+
+<script>
+  document.getElementById("whatsappForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Captura los valores del formulario
+    const nombre = document.getElementById("nombre").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+    const mensaje = document.getElementById("mensaje").value.trim();
+
+    // Tu número de WhatsApp (formato internacional sin + ni espacios)
+    const telefono = "573153197362"; // Ejemplo: 57 (Colombia) + número
+
+    // Mensaje que se enviará
+    const texto = `Hola, soy ${nombre}.%0A📧 Mi correo es: ${correo}%0A📝 Mensaje: ${mensaje}`;
+
+    // Enlace a WhatsApp
+    const url = `https://wa.me/${telefono}?text=${texto}`;
+
+    // Abre WhatsApp en una nueva pestaña
+    window.open(url, "_blank");
+  });
+</script>
+
+</body>
+
+
+</html>
