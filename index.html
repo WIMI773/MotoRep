@@ -24,9 +24,15 @@
           <li><a href="#nosotros">Nosotros</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
-      </nav>
-    </div>
+
+        <div class="buscador-nav">
+  <input type="text" id="buscadorInput" placeholder="Buscar...">
+  <button id="btnBuscar" class="btnBuscar">Buscar</button>
+</div>
+
   </header>
+
+  
 
   <!-- HERO (Carrusel de imágenes) -->
 <section id="inicio" class="hero">
@@ -48,37 +54,72 @@
 
 
   <!-- PRODUCTOS -->
-  <section id="productos" class="productos section">
-    <div class="container">
-      <h2 class="section__title">Productos Destacados</h2>
+<section id="productos" class="productos section">
+  <div class="container">
+    <h2 class="section__title">Productos Destacados</h2>
 
-      <div class="productos__grid">
-        <div class="producto">
-          <img src="imagenes/aceites.webp" alt="Aceite para motor">
-          <h3>Aceite para Motor</h3>
-          <p>Lubricante sintético de alta calidad para un mejor rendimiento.</p>
-        </div>
+    <div class="productos__grid">
 
-        <div class="producto">
-          <img src="imagenes/llanta3.webp" alt="Llanta de moto">
-          <h3>Llantas</h3>
-          <p>Gran agarre y durabilidad en todas las condiciones.</p>
-        </div>
+<!-- Producto 1 -->
+<div class="producto">
+  <img src="imagenes/aceites.webp" alt="Aceite para Moto">
+  <h3>Aceites</h3>
+  <p>Máxima protección para tu motor, rendimiento sin límites.</p>
+  <button class="btn verMasBtn" onclick="window.location.href='aceites.html'">Ver más</button>
+</div>
 
-        <div class="producto">
-          <img src="imagenes/bandas.webp" alt="Casco de seguridad">
-          <h3>Bandas</h3>
-          <p>Bandas resistentes, máximo agarre y durabilidad garantizada.</p>
-        </div>
 
-        <div class="producto">
-          <img src="imagenes/bujia.png" alt="Bujía de encendido">
-          <h3>Bujías</h3>
-          <p>Encendido eficiente y menor consumo de combustible.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- Producto 2 -->
+<div class="producto">
+  <img src="imagenes/llanta3.webp" alt="Llanta de moto">
+  <h3>Llantas</h3>
+  <p>Gran agarre y durabilidad en todas las condiciones.</p>
+  <button class="btn verMasBtn" onclick="window.location.href='llantas.html'">Ver más</button>
+</div>
+
+<!-- Producto 3 -->
+<div class="producto">
+  <img src="imagenes/bandas.webp" alt="Bandas">
+  <h3>Bandas</h3>
+  <p>Bandas resistentes, máximo agarre y durabilidad garantizada.</p>
+  <button class="btn verMasBtn" onclick="window.location.href='bandas.html'">Ver más</button>
+</div>
+
+<!-- Producto 4 -->
+<div class="producto">
+  <img src="imagenes/bujia.png" alt="Bujía de encendido">
+  <h3>Bujías</h3>
+  <p>Encendido eficiente y menor consumo de combustible.</p>
+  <button class="btn verMasBtn" onclick="window.location.href='bujias.html'">Ver más</button>
+</div>
+
+<!-- Producto 5-->
+ <div class="producto">
+  <img src="imagenes/relaciones.png" alt="Kit de Arrastre">
+  <h3>Kit de Arrastre</h3>
+  <p>Potencia que se siente en cada cambio.</p>
+  <button class="btn verMasBtn" onclick="window.location.href='bujias.html'">Ver más</button>
+</div>
+
+<!-- Producto 6-->
+ <div class="producto">
+  <img src="imagenes/pastilla.png" alt="Pastilla de Freno">
+  <h3>Pastillas de Freno</h3>
+  <p>Seguridad que responde al momento.</p>
+  <button class="btn verMasBtn" onclick="window.location.href='bujias.html'">Ver más</button>
+</div>
+
+<!-- Producto 7-->
+ <div class="producto">
+  <img src="imagenes/bateria.webp" alt="Baterias">
+  <h3>Baterias</h3>
+  <p>Energía fiable para cualquier situación.</p>
+  <button class="btn verMasBtn" onclick="window.location.href='bujias.html'">Ver más</button>
+</div>
+
+    
+</section>
+
 
   <!-- NOSOTROS -->
   <section id="nosotros" class="nosotros section">
@@ -151,6 +192,119 @@
     window.open(url, "_blank");
   });
 </script>
+
+
+<script>
+  // Mostrar más productos por categoría
+  document.querySelectorAll('.verMasBtn').forEach(boton => {
+    boton.addEventListener('click', () => {
+      const categoria = boton.getAttribute('data-categoria');
+      const seccion = document.getElementById(`mas-${categoria}`);
+      
+      // Ocultar otras secciones
+      document.querySelectorAll('.productos__extra').forEach(sec => sec.classList.add('oculto'));
+
+      // Mostrar la que corresponde
+      seccion.classList.toggle('oculto');
+
+      // Scroll suave hasta la sección
+      seccion.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const buscadorInput = document.getElementById("buscadorInput");
+  
+  if (!buscadorInput) return; // seguridad por si el input no se encuentra
+
+  buscadorInput.addEventListener("keyup", () => {
+    const filtro = buscadorInput.value.toLowerCase().trim();
+    const productos = document.querySelectorAll(".producto");
+
+    let encontrados = 0;
+
+    productos.forEach(producto => {
+      const nombre = producto.querySelector("h3").textContent.toLowerCase();
+      const descripcion = producto.querySelector("p").textContent.toLowerCase();
+
+      if (nombre.includes(filtro) || descripcion.includes(filtro)) {
+        producto.style.display = "flex"; // usa "block" si tu CSS no usa flexbox
+        encontrados++;
+      } else {
+        producto.style.display = "none";
+      }
+    });
+
+    // Mostrar mensaje si no hay resultados
+    let mensaje = document.getElementById("mensajeNoResultados");
+    if (!mensaje) {
+      mensaje = document.createElement("p");
+      mensaje.id = "mensajeNoResultados";
+      mensaje.style.textAlign = "center";
+      mensaje.style.marginTop = "20px";
+      mensaje.style.fontWeight = "600";
+      mensaje.style.display = "none";
+      mensaje.textContent = "No se encontraron productos.";
+      document.querySelector("#productos .container").appendChild(mensaje);
+    }
+
+    mensaje.style.display = encontrados === 0 && filtro !== "" ? "block" : "none";
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const buscadorInput = document.getElementById("buscadorInput");
+  const btnBuscar = document.getElementById("btnBuscar");
+
+  function filtrarProductos() {
+    const filtro = buscadorInput.value.toLowerCase().trim();
+    const productos = document.querySelectorAll(".producto");
+    let encontrados = 0;
+
+    productos.forEach(producto => {
+      const nombre = producto.querySelector("h3").textContent.toLowerCase();
+      const descripcion = producto.querySelector("p").textContent.toLowerCase();
+
+      // Si no hay texto en el buscador, mostrar todos los productos
+      if (filtro === "") {
+        producto.style.display = "flex"; // o "block" según tu CSS
+        encontrados++;
+      } else if (nombre.includes(filtro) || descripcion.includes(filtro)) {
+        producto.style.display = "flex";
+        encontrados++;
+      } else {
+        producto.style.display = "none";
+      }
+    });
+
+    // Mostrar mensaje si no hay resultados
+    let mensaje = document.getElementById("mensajeNoResultados");
+    if (!mensaje) {
+      mensaje = document.createElement("p");
+      mensaje.id = "mensajeNoResultados";
+      mensaje.style.textAlign = "center";
+      mensaje.style.marginTop = "20px";
+      mensaje.style.fontWeight = "600";
+      mensaje.style.display = "none";
+      mensaje.textContent = "No se encontraron productos.";
+      document.querySelector("#productos .container").appendChild(mensaje);
+    }
+
+    mensaje.style.display = encontrados === 0 && filtro !== "" ? "block" : "none";
+  }
+
+  // Buscar al hacer clic en el botón o presionar Enter
+  btnBuscar.addEventListener("click", filtrarProductos);
+  buscadorInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") filtrarProductos();
+    if (buscadorInput.value === "") filtrarProductos(); // ✅ muestra todos al borrar
+  });
+});
+</script>
+
 
 </body>
 

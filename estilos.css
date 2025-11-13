@@ -208,6 +208,12 @@ body {
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 380px;
+  text-align: center;
+  padding-bottom: 15px;
 }
 
 .producto:hover {
@@ -216,18 +222,54 @@ body {
 
 .producto img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: auto; /* se ajusta automáticamente al ancho */
+  object-fit: contain; /* muestra la imagen completa sin recortar */
+  border-radius: 10px; /* opcional: bordes suaves */
+  display: block;
+  background-color: #f8f8f8; /* fondo si la imagen no llena todo */
+  max-height: 200px; /* puedes ajustar la altura máxima */
+  margin: 0 auto; /* centra la imagen */
 }
+
 
 .producto h3 {
   color: var(--color-secundario);
-  margin: 15px;
+  margin: 15px 10px 10px;
+  font-size: 1.1rem;
 }
 
 .producto p {
-  margin: 0 15px 20px;
+  margin: 0 15px 10px;
   font-size: 0.95rem;
+  flex-grow: 1;
+}
+
+/* Botón Ver Más centrado */
+.verMasBtn {
+  align-self: center;
+  margin-top: auto;
+  background-color: #d61c1c;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  width: fit-content;
+}
+
+.verMasBtn:hover {
+  background-color: #a11212;
+}
+
+.productos__extra {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.oculto {
+  display: none;
 }
 
 /* ===========================
@@ -300,4 +342,182 @@ body {
     width: 90%;
     padding: 20px;
   }
+
+  .producto {
+    height: auto;
+  }
 }
+
+.productos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* Tarjeta general */
+.producto {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔧 Imagen uniforme */
+.producto img {
+  width: 100%;
+  height: 180px; /* Mantiene todas iguales */
+  object-fit: contain; /* No recorta nada */
+  background-color: #f8f8f8; /* Fondo gris claro para uniformar */
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Texto */
+.producto h3 {
+  font-size: 1.1rem;
+  margin: 10px 0 5px;
+  color: #222;
+}
+
+.producto p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Botón */
+.producto .btn {
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.producto .btn:hover {
+  background: #1d3557;
+}
+
+/* --- BUSCADOR DENTRO DEL NAV --- */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav ul li {
+  margin: 0 10px;
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav ul li a:hover,
+.nav ul li a.active {
+  color: #e21b1b;
+}
+
+.buscador-nav input {
+  padding: 8px 15px;
+  font-size: 15px;
+  border: 2px solid #e21b1b;
+  border-radius: 20px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.buscador-nav input:focus {
+  border-color: #000;
+  box-shadow: 0 0 8px rgba(226, 27, 27, 0.4);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+  }
+  .buscador-nav {
+    margin-top: 10px;
+  }
+  .buscador-nav input {
+    width: 90%;
+  }
+}
+
+/* 🔍 Contenedor del buscador */
+.buscador-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 20px;
+}
+
+/* Campo de texto del buscador */
+.buscador-nav input {
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s;
+  width: 180px;
+}
+
+.buscador-nav input:focus {
+  border-color: #e60000; /* color rojo principal */
+  box-shadow: 0 0 5px rgba(230, 0, 0, 0.3);
+}
+
+/* Botón de búsqueda */
+.btnBuscar {
+  background-color: #e60000; /* rojo característico */
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btnBuscar:hover {
+  background-color: #b80000;
+  transform: scale(1.05);
+}
+
+.precio {
+  display: block;
+  margin-top: 8px;
+  font-weight: 800; /* 🔥 Negrita fuerte */
+  color: #e60000; /* Rojo principal */
+  font-size: 1.1em;
+  text-align: center; /* Centrado debajo del producto */
+}
+
+
+
