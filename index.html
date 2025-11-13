@@ -294,16 +294,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     mensaje.style.display = encontrados === 0 && filtro !== "" ? "block" : "none";
+
+    // 👇 desplazamiento automático hacia la sección de productos
+    const productosSection = document.getElementById("productos");
+    productosSection.scrollIntoView({ behavior: "smooth" });
   }
 
-  // Buscar al hacer clic en el botón o presionar Enter
+  // Buscar al hacer clic o presionar Enter
   btnBuscar.addEventListener("click", filtrarProductos);
   buscadorInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") filtrarProductos();
-    if (buscadorInput.value === "") filtrarProductos(); // ✅ muestra todos al borrar
+    if (buscadorInput.value === "") filtrarProductos(); // muestra todos al borrar
   });
 });
 </script>
+
 
 
 </body>
