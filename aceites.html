@@ -1,129 +1,165 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aceites | MotoRep</title>
-  <link rel="stylesheet" href="estilos.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aceites | MotoRep</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container header__content">
-      <div class="logo">
-        <img src="imagenes/logo1.png" alt="MotoRep Logo">
-        <h1>MotoRep</h1>
-      </div>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container header__content">
+            <div class="logo">
+                <img src="imagenes/logo1.png" alt="MotoRep Logo">
+                <h1>MotoRep</h1>
+            </div>
 
-      <nav class="nav">
-        <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="aceites.html" class="active">Aceites</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="aceites.html" class="active">Aceites</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
 
-        <!-- 🔍 Buscador -->
-        <div class="buscador-nav">
-          <input type="text" id="buscador" placeholder="Buscar aceite...">
-          <button id="btnBuscar" class="btnBuscar">Buscar</button>
+                <!-- 🔍 Buscador -->
+                <div class="buscador-nav">
+                    <input type="text" id="buscador" placeholder="Buscar aceite...">
+                    <button id="btnBuscar" class="btnBuscar">Buscar</button>
+                </div>
+            </nav>
         </div>
-      </nav>
-    </div>
-  </header>
+    </header>
 
-  <!-- SECCIÓN DE ACEITES -->
-  <section class="section" id="aceites">
-    <div class="container">
-      <h2 class="section__title">Aceites para Motor</h2>
+    <!-- SECCIÓN DE ACEITES -->
+    <section class="section" id="aceites">
+        <div class="container">
+            <h2 class="section__title">Aceites para Motor</h2>
 
-      <div class="productos__grid" id="listaProductos">
+            <div class="productos__grid" id="listaProductos">
 
-        <!-- Producto 1 -->
-        <div class="producto">
-          <img src="imagenAceite/motul5000.png" alt="Aceite Motul">
-          <h3>Aceite Motul 5100</h3>
-          <p>Aceite 100% sintético con alta protección para motores 4T.</p>
-           <span class="precio">$45.000</span>
+                <!-- Producto 1 -->
+                <div class="producto">
+                    <img src="imagenAceite/motul5000.png" alt="Aceite Motul">
+                    <h3>Aceite Motul 5100</h3>
+                    <p>Aceite 100% sintético con alta protección para motores 4T.</p>
+                    <span class="precio">$45.000</span>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="producto">
+                    <img src="imagenAceite/castrolpower1.png" alt="Aceite Castrol">
+                    <h3>Castrol Power1 20W50</h3>
+                    <p>Máxima potencia y menor fricción, ideal para motos de alto rendimiento.</p>
+                    <span class="precio">$37.000</span>
+
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="producto">
+                    <img src="imagenAceite/advance.webp" alt="Aceite Shell">
+                    <h3>Shell Advance 4T 20W50</h3>
+                    <p>Lubricante premium para protección y limpieza superior.</p>
+                    <span class="precio">$27.000</span>
+
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="producto">
+                    <img src="imagenAceite/repsol.png" alt="Aceite Repsol">
+                    <h3>Repsol 20W50</h3>
+                    <p>Desempeño profesional, reduce el desgaste y mejora el arranque en frío.</p>
+                    <span class="precio">$27.000</span>
+
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="producto">
+                    <img src="imagenAceite/yamalube.png" alt="Aceite Yamalube">
+                    <h3>Yamalube 20W50</h3>
+                    <p>Diseñado para mantener el máximo rendimiento de su Yamaha.</p>
+                    <span class="precio">$33.000</span>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="producto">
+                    <img src="imagenAceite/supermobil.webp" alt="Aceite Mobil">
+                    <h3>Super Mobil 20W50</h3>
+                    <p>La tecnología de los automóviles de carrera, ahora para tu moto.</p>
+                    <span class="precio">$28.000</span>
+
+                </div>
+
+                <!-- Producto 7 -->
+                <div class="producto">
+                    <img src="imagenAceite/honda.webp" alt="Aceite Honda">
+                    <h3>Honda 10W30</h3>
+                    <p>Rendimiento fiable para proteger y potenciar su motor en cada kilómetro.</p>
+                    <span class="precio">$43.000</span>
+
+                </div>
+
+                <!-- Producto 8 -->
+                <div class="producto">
+                    <img src="imagenAceite/motul5100.png" alt="Aceite Motul 5100">
+                    <h3>Motul 5100 </h3>
+                    <p>Protección extrema y rendimiento para que puedas estar sobre la moto todo el día.</p>
+                    <span class="precio">$37.000</span>
+
+                </div>
+
+                <div style="text-align:center; margin-top:30px;">
+                    <a href="index.html" class="btn">Volver al Inicio</a>
+                </div>
+            </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 MotoRep | Todos los derechos reservados.</p>
         </div>
+    </footer>
 
-        <!-- Producto 2 -->
-        <div class="producto">
-          <img src="imagenAceite/castrolpower1.png" alt="Aceite Castrol">
-          <h3>Castrol Power1 20W50</h3>
-          <p>Máxima potencia y menor fricción, ideal para motos de alto rendimiento.</p>
-                     <span class="precio">$37.000</span>
+    <!-- 🔍 SCRIPT DE BÚSQUEDA -->
+    <script>
+        const buscador = document.getElementById('buscador');
+        const btnBuscar = document.getElementById('btnBuscar');
+        const productos = document.querySelectorAll('.producto');
 
-        </div>
+        function filtrarProductos() {
+            const texto = buscador.value.toLowerCase();
 
-        <!-- Producto 3 -->
-        <div class="producto">
-          <img src="imagenAceite/advance.webp" alt="Aceite Shell">
-          <h3>Shell Advance 4T 20W50</h3>
-          <p>Lubricante premium para protección y limpieza superior.</p>
-                     <span class="precio">$27.000</span>
+            productos.forEach(producto => {
+                const nombre = producto.querySelector('h3').textContent.toLowerCase();
+                const descripcion = producto.querySelector('p').textContent.toLowerCase();
 
-        </div>
+                if (nombre.includes(texto) || descripcion.includes(texto)) {
+                    producto.style.display = 'block';
+                } else {
+                    producto.style.display = 'none';
+                }
+            });
 
-        <!-- Producto 4 -->
-        <div class="producto">
-          <img src="imagenAceite/repsol.png" alt="Aceite Repsol">
-          <h3>Repsol 20W50</h3>
-          <p>Desempeño profesional, reduce el desgaste y mejora el arranque en frío.</p>
-                     <span class="precio">$27.000</span>
-
-        </div>
-
-      </div>
-
-      <div style="text-align:center; margin-top:30px;">
-        <a href="index.html" class="btn">Volver al Inicio</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 MotoRep | Todos los derechos reservados.</p>
-    </div>
-  </footer>
-
-  <!-- 🔍 SCRIPT DE BÚSQUEDA -->
-  <script>
-    const buscador = document.getElementById('buscador');
-    const btnBuscar = document.getElementById('btnBuscar');
-    const productos = document.querySelectorAll('.producto');
-
-    function filtrarProductos() {
-      const texto = buscador.value.toLowerCase();
-
-      productos.forEach(producto => {
-        const nombre = producto.querySelector('h3').textContent.toLowerCase();
-        const descripcion = producto.querySelector('p').textContent.toLowerCase();
-
-        if (nombre.includes(texto) || descripcion.includes(texto)) {
-          producto.style.display = 'block';
-        } else {
-          producto.style.display = 'none';
+            // Si no hay texto, mostrar todos
+            if (texto === '') {
+                productos.forEach(producto => producto.style.display = 'block');
+            }
         }
-      });
 
-      // Si no hay texto, mostrar todos
-      if (texto === '') {
-        productos.forEach(producto => producto.style.display = 'block');
-      }
-    }
-
-    // Buscar al hacer clic o presionar Enter
-    btnBuscar.addEventListener('click', filtrarProductos);
-    buscador.addEventListener('keyup', event => {
-      if (event.key === 'Enter' || buscador.value === '') {
-        filtrarProductos();
-      }
-    });
-  </script>
+        // Buscar al hacer clic o presionar Enter
+        btnBuscar.addEventListener('click', filtrarProductos);
+        buscador.addEventListener('keyup', event => {
+            if (event.key === 'Enter' || buscador.value === '') {
+                filtrarProductos();
+            }
+        });
+    </script>
 
 </body>
+
 </html>
