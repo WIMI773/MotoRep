@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorep - Repuestos para Motos</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fuentes de Google Fonts para un diseño distintivo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navegación Principal -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-text">MOTOREP</span>
+                    <span class="logo-tagline">REPUESTOS ORIGINALES</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                    <li><a href="#categorias" class="nav-link">Categorías</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carrusel Hero -->
+    <section id="inicio" class="hero-carousel">
+        <div class="carousel-container">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <div class="carousel-image"
+                    style="background-image: url('https://img.freepik.com/foto-gratis/hombre-reparando-motocicleta-taller-moderno_158595-8083.jpg?semt=ais_user_personalization&w=740&q=80');">
+                </div>
+                <div class="carousel-overlay"></div>
+                <div class="container">
+                    <div class="carousel-content">
+                        <h2 class="carousel-title">TODO EN REPUESTOS PARA TU MOTO</h2>
+                        <p class="carousel-subtitle">Calidad garantizada · Entregas rápidas · Asesoría experta</p>
+                        <div class="carousel-buttons">
+                            <a href="#categorias" class="btn btn-primary">Ver Categorías</a>
+                            <a href="https://wa.me/573001234567" target="_blank" class="btn btn-secondary">
+                                <span class="whatsapp-icon">📱</span> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <div class="carousel-image"
+                    style="background-image: url('https://cdn.club-magazin.autodoc.de/uploads/sites/11/2022/01/cambiar-aceite-moto.jpg');">
+                </div>
+                <div class="carousel-overlay"></div>
+                <div class="container">
+                    <div class="carousel-content">
+                        <h2 class="carousel-title">REPUESTOS DE CALIDAD</h2>
+                        <p class="carousel-subtitle">Motor · Frenos · Llantas · Accesorios</p>
+                        <div class="carousel-buttons">
+                            <a href="#categorias" class="btn btn-primary">Explorar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Controles del Carrusel -->
+            <button class="carousel-control prev" id="carouselPrev">‹</button>
+            <button class="carousel-control next" id="carouselNext">›</button>
+
+            <!-- Indicadores -->
+            <div class="carousel-indicators">
+                <button class="indicator active" data-slide="0"></button>
+                <button class="indicator" data-slide="1"></button>
+                <button class="indicator" data-slide="2"></button>
+            </div>
+    </section>
+
+    <!-- Sección de Categorías -->
+    <section id="categorias" class="categories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">NUESTRAS CATEGORÍAS</h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">Explora nuestro catálogo completo de repuestos</p>
+            </div>
+
+            <div class="categories-grid">
+                <!-- Categoría Motor -->
+                <a href="cilindros.html" class="category-card">
+                    <div class="category-image"
+                        style="background-image: url('https://http2.mlstatic.com/D_NQ_NP_907164-MCO75037376513_032024-O.webp');">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">CILINDROS</h3>
+                        <p class="category-description">Cilindros y componentes del motor</p>
+                        <span class="category-link">Ver productos →</span>
+                    </div>
+                </a>
+
+                <!-- Categoría Frenos -->
+                <a href="bandas.html" class="category-card">
+                    <div class="category-image"
+                        style="background-image: url('https://osakaparts.com/wp-content/uploads/2025/09/COEFICIENTE.jpg');">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">BANDAS DE FRENOS</h3>
+                        <p class="category-description">Bandas de freno de alta calidad</p>
+                        <span class="category-link">Ver productos →</span>
+                    </div>
+                </a>
+
+                <!-- Categoría Llantas -->
+                <a href="llantas.html" class="category-card">
+                    <div class="category-image"
+                        style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdC9MpK_dWEttCTCiWnpk-TQgkZc4InGUiOw&s');">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">LLANTAS</h3>
+                        <p class="category-description">Neumáticos de alta calidad</p>
+                        <span class="category-link">Ver productos →</span>
+                    </div>
+                </a>
+
+                <!-- Categoría Accesorios -->
+                <a href="aceites.html" class="category-card">
+                    <div class="category-image"
+                        style="background-image: url('https://radical-rpm.com/modules/ph_simpleblog/covers/3.jpg');">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">ACEITES</h3>
+                        <p class="category-description">Aceites de motor y lubricantes especializados</p>
+                        <span class="category-link">Ver productos →</span>
+                    </div>
+                </a>
+
+                <!-- Categoría Lubricantes -->
+                <a href="bujias.html" class="category-card">
+                    <div class="category-image"
+                        style="background-image: url('https://www.c3carecarcenter.com/wp-content/uploads/2025/05/Todo-lo-que-debes-saber-sobre-bujia-NGK-BP6ES-para-tu-vehiculo-1038x576.webp');">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">BUJIAS</h3>
+                        <p class="category-description">Bujías de alta calidad para motores</p>
+                        <span class="category-link">Ver productos →</span>
+                    </div>
+                </a>
+
+                <!-- Categoría Eléctrico -->
+                <a href="cadenas.html" class="category-card">
+                    <div class="category-image"
+                        style="background-image: url('https://bu-cdn.tiendup.com/business/7310/images/4014_62e6afbc64a17_large.jpg');">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">CADENAS</h3>
+                        <p class="category-description">Cadenas</p>
+                        <span class="category-link">Ver productos →</span>
+                    </div>
+                </a>
+
+                <!-- Categoría Pastillas -->
+                <a href="pastillas.html" class="category-card">
+                    <div class="category-image"
+                        style="background-image: url('https://www.moto1pro.com/sites/default/files/pastillas-freno-moto-2.jpg');">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">PASTILLAS DE FRENO</h3>
+                        <p class="category-description">Pastillas de freno de alta calidad</p>
+                        <span class="category-link">Ver productos →</span>
+                    </div>
+                </a>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2 class="section-title">¿NECESITAS AYUDA?</h2>
+                    <p class="contact-text">Nuestro equipo está listo para asesorarte y encontrar el repuesto perfecto
+                        para tu moto.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div>
+                                <strong>Ubicación</strong>
+                                <p>Cúcuta, Norte de Santander</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">⏰</span>
+                            <div>
+                                <strong>Horario</strong>
+                                <p>Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <div>
+                                <strong>WhatsApp</strong>
+                                <p>+57 300 123 4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-cta">
+                    <a href="https://wa.me/573001234567" target="_blank" class="btn-whatsapp-large">
+                        <span class="wa-icon">💬</span>
+                        <span class="wa-text">
+                            <span class="wa-title">Chatea con nosotros</span>
+                            <span class="wa-subtitle">Respuesta inmediata</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">MOTOREP</span>
+                    <p>Tu aliado en repuestos de calidad</p>
+                </div>
+                <div class="footer-social">
+                    <p>&copy; 2026 Motorep. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/573001234567" target="_blank" class="whatsapp-float" id="whatsappFloat">
+        <span class="wa-pulse"></span>
+        📱
+    </a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
