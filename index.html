@@ -4,258 +4,1367 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motorep - Repuestos para Motos</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Fuentes de Google Fonts para un diseño distintivo -->
+    <title>Motorep - Repuestos Originales para Motos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <style>
+        :root {
+            --red: #D42B2B;
+            --red-dark: #A81F1F;
+            --red-glow: rgba(212, 43, 43, 0.25);
+            --black: #0C0C0C;
+            --dark: #161616;
+            --dark2: #1F1F1F;
+            --dark3: #2A2A2A;
+            --gray: #555;
+            --gray-light: #888;
+            --border: rgba(255, 255, 255, 0.07);
+            --white: #FFFFFF;
+            --off-white: #E8E8E8;
+            --font-display: 'Barlow Condensed', sans-serif;
+            --font-body: 'Barlow', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--off-white);
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgb(249, 247, 247);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgb(255, 255, 255);
+            border-bottom-color: var(--red);
+            border-bottom-width: 2px;
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--red);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .logo-text-wrap {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo-name {
+            font-family: var(--font-display);
+            font-size: 1.55rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: black;
+            text-transform: uppercase;
+        }
+
+        .logo-sub {
+            font-size: 0.45rem;
+            letter-spacing: 2.5px;
+            color: var(--gray-light);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: black;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: green;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: black;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: green !important;
+            color: var(--white) !important;
+            padding: 0.45rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: black;
+            transition: 0.3s;
+            display: block;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            margin-top: 64px;
+            height: 520px;
+            overflow: hidden;
+        }
+
+        .hero-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.9s ease;
+            pointer-events: none;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.04);
+            transition: transform 8s ease;
+        }
+
+        .hero-slide.active .hero-bg {
+            transform: scale(1);
+        }
+
+        /* Overlays en capas para dar profundidad */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg,
+                    rgba(12, 12, 12, 0.82) 0%,
+                    rgba(12, 12, 12, 0.45) 55%,
+                    rgba(12, 12, 12, 0.2) 100%);
+        }
+
+        .hero-overlay-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 180px;
+            background: linear-gradient(to top, var(--black), transparent);
+        }
+
+        /* Línea decorativa roja lateral */
+        .hero-accent {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: green;
+            z-index: 3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            height: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideRight 0.7s ease both;
+        }
+
+        .hero-eyebrow-line {
+            width: 32px;
+            height: 2px;
+            background: green;
+        }
+
+        .hero-eyebrow span {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: rgb(255, 255, 255);
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgb(255, 255, 255);
+            animation: slideRight 0.7s 0.1s ease both;
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: green;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            max-width: 440px;
+            animation: slideRight 0.7s 0.2s ease both;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 1.2rem;
+            animation: slideRight 0.7s 0.25s ease both;
+        }
+
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.3px;
+        }
+
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: green;
+            flex-shrink: 0;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            animation: slideRight 0.7s 0.3s ease both;
+        }
+
+        .btn-hero-primary {
+            background: green;
+            color: var(--white);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.75rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+        }
+
+        .btn-hero-primary:hover {
+            background: green;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px var(--red-glow);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            color: var(--white);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.75rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.25s;
+        }
+
+        .btn-hero-secondary:hover {
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        /* Estadísticas hero */
+        .hero-stats {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 2rem;
+            z-index: 5;
+            animation: fadeUp 0.8s 0.4s ease both;
+        }
+
+        .hero-stat {
+            text-align: right;
+        }
+
+        .hero-stat-num {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .hero-stat-num span {
+            color: green;
+        }
+
+        .hero-stat-label {
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            color: var(--gray-light);
+            text-transform: uppercase;
+        }
+
+        /* Controles hero //////////////////////////////////////////////////*/
+        .hero-nav {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            display: flex;
+            gap: 8px;
+            z-index: 5;
+        }
+
+        .hero-dot {
+            width: 28px;
+            height: 3px;
+            background: rgba(118, 90, 90, 0.25);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hero-dot.active {
+            background: green;
+            width: 40px;
+        }
+
+        .hero-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .hero-arrow {
+            pointer-events: all;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--white);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            backdrop-filter: blur(6px);
+        }
+
+        .hero-arrow:hover {
+            background: green;
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── TRUST BAR ── */
+        .trust-bar {
+            background: white;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 0.9rem 0;
+        }
+
+        .trust-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .trust-icon {
+            font-size: 1.1rem;
+        }
+
+        .trust-text {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: black;
+            text-transform: uppercase;
+        }
+
+        .trust-sep {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+
+        /* ── SECCIÓN TÍTULO COMPARTIDO ── */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-label-line {
+            width: 24px;
+            height: 2px;
+            background: green;
+        }
+
+        .section-label span {
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: black;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: black;
+            line-height: 1;
+        }
+
+        /* ── CATEGORÍAS ───────────────────────────────── */
+
+        .categories-section {
+            padding: 4rem 0;
+            background: #f7f7f7;
+        }
+
+        .section-header {
+            max-width: 1280px;
+            margin: auto;
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .categories-grid {
+            max-width: 1280px;
+            margin: auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* TARJETA */
+
+        .cat-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: all .3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .cat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* IMAGEN */
+
+        .cat-img-wrap {
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .cat-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
+        }
+
+        .cat-card:hover .cat-img {
+            transform: scale(1.08);
+        }
+
+        /* CONTENIDO */
+
+        .cat-body {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cat-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cat-desc {
+            font-size: .8rem;
+            color: #666;
+        }
+
+        /* FOOTER */
+
+        .cat-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .cat-ver {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #e10600;
+        }
+
+        .cat-arrow {
+            color: #e10600;
+            font-size: .9rem;
+            transition: transform .2s;
+        }
+
+        .cat-card:hover .cat-arrow {
+            transform: translateX(5px);
+        }
+
+        /* ── CONTACTO STRIP ── */
+        .contact-strip {
+            background: var(--dark2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 0;
+        }
+
+        .contact-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .contact-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-items {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text strong {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .contact-item-text span {
+            font-size: 0.78rem;
+            color: var(--gray-light);
+        }
+
+        .btn-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #1DAF53;
+            color: var(--white);
+            text-decoration: none;
+            padding: 1rem 1.8rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.25s;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-wa::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        .btn-wa:hover {
+            background: #158a40;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(29, 175, 83, 0.3);
+        }
+
+        .btn-wa:hover::before {
+            transform: translateX(0);
+        }
+
+        .wa-svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+            flex-shrink: 0;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--black);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 0;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--gray);
+            letter-spacing: 0.5px;
+        }
+
+        /* ── WHATSAPP FLOTANTE ── */
+.wa-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+/* Mensaje */
+.wa-float-bubble {
+    background: white;
+    border: 1px solid #e5e5e5;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    color: #333;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.wa-float:hover .wa-float-bubble {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Botón */
+.wa-float-btn {
+    width: 56px;
+    height: 56px;
+    background: #25D366; /* verde oficial */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
+    transition: all 0.25s;
+    position: relative;
+}
+
+.wa-float-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.45);
+}
+
+.wa-float-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+}
+
+/* Animación del anillo */
+.wa-float-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(37, 211, 102, 0.5);
+    animation: ringPulse 2s infinite;
+}
+
+@keyframes ringPulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+        @keyframes ringPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.55);
+                opacity: 0;
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgb(255, 255, 255);
+                padding: 1.5rem;
+                gap: 0.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.open a {
+                font-size: 1.2rem;
+                padding: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-stats {
+                display: none;
+            }
+
+            .contact-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero {
+                height: 440px;
+            }
+
+            .hero-badges {
+                display: none;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .trust-sep {
+                display: none;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Navegación Principal -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <span class="logo-text">MOTOREP</span>
-                    <span class="logo-tagline">REPUESTOS ORIGINALES</span>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-wrap">
+                <div class="logo-icon">⚙</div>
+                <div class="logo-text-wrap">
+                    <span class="logo-name">Motorep</span>
+                    <span class="logo-sub">Repuestos Originales</span>
                 </div>
-                <button class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                    <li><a href="#categorias" class="nav-link">Categorías</a></li>
-                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
-                </ul>
-            </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="#categorias">Categorías</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li>
+                    <a href="https://wa.me/573001234567" target="_blank" class="nav-cta">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        WhatsApp
+                    </a>
+                </li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Carrusel Hero -->
-    <section id="inicio" class="hero-carousel">
-        <div class="carousel-container">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-accent"></div>
+        <div class="hero-slides" id="heroSlides">
+
             <!-- Slide 1 -->
-            <div class="carousel-slide active">
-                <div class="carousel-image"
-                    style="background-image: url('https://img.freepik.com/foto-gratis/hombre-reparando-motocicleta-taller-moderno_158595-8083.jpg?semt=ais_user_personalization&w=740&q=80');">
+            <div class="hero-slide active">
+                <div class="hero-bg"
+                    style="background-image: url('https://images.unsplash.com/photo-1558981285-6f0c5e87e6c8?w=1600&q=80')">
                 </div>
-                <div class="carousel-overlay"></div>
-                <div class="container">
-                    <div class="carousel-content">
-                        <h2 class="carousel-title">TODO EN REPUESTOS PARA TU MOTO</h2>
-                        <p class="carousel-subtitle">Calidad garantizada · Entregas rápidas · Asesoría experta</p>
-                        <div class="carousel-buttons">
-                            <a href="#categorias" class="btn btn-primary">Ver Categorías</a>
-                            <a href="https://wa.me/573001234567" target="_blank" class="btn btn-secondary">
-                                <span class="whatsapp-icon">📱</span> WhatsApp
-                            </a>
+                <div class="hero-overlay"></div>
+                <div class="hero-overlay-bottom"></div>
+                <div class="hero-content">
+                    <div class="hero-eyebrow">
+                        <div class="hero-eyebrow-line"></div>
+                        <span>Repuestos 100% Originales</span>
+                    </div>
+                    <h1 class="hero-title">Todo en<br><em>Repuestos</em><br>para tu Moto</h1>
+                    <p class="hero-subtitle">Calidad garantizada · Entregas rápidas · Asesoría experta</p>
+                    <div class="hero-badges">
+                        <div class="hero-badge">
+                            <div class="hero-badge-dot"></div>Yamaha
                         </div>
+                        <div class="hero-badge">
+                            <div class="hero-badge-dot"></div>Honda
+                        </div>
+                        <div class="hero-badge">
+                            <div class="hero-badge-dot"></div>Suzuki
+                        </div>
+                        <div class="hero-badge">
+                            <div class="hero-badge-dot"></div>AKT
+                        </div>
+                    </div>
+                    <div class="hero-btns">
+                        <a href="#categorias" class="btn-hero-primary">Ver Categorías ›</a>
+                        <a href="https://wa.me/573001234567" target="_blank" class="btn-hero-secondary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                            </svg>
+                            Cotizar ahora
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Slide 2 -->
-            <div class="carousel-slide">
-                <div class="carousel-image"
-                    style="background-image: url('https://cdn.club-magazin.autodoc.de/uploads/sites/11/2022/01/cambiar-aceite-moto.jpg');">
+            <div class="hero-slide">
+                <div class="hero-bg"
+                    style="background-image: url('https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=1600&q=80')">
                 </div>
-                <div class="carousel-overlay"></div>
-                <div class="container">
-                    <div class="carousel-content">
-                        <h2 class="carousel-title">REPUESTOS DE CALIDAD</h2>
-                        <p class="carousel-subtitle">Motor · Frenos · Llantas · Accesorios</p>
-                        <div class="carousel-buttons">
-                            <a href="#categorias" class="btn btn-primary">Explorar</a>
-                        </div>
+                <div class="hero-overlay"></div>
+                <div class="hero-overlay-bottom"></div>
+                <div class="hero-content">
+                    <div class="hero-eyebrow">
+                        <div class="hero-eyebrow-line"></div>
+                        <span>Motor · Frenos · Transmisión</span>
+                    </div>
+                    <h1 class="hero-title">Piezas de<br><em>Alta</em><br>Precisión</h1>
+                    <p class="hero-subtitle">El repuesto correcto para cada modelo · Stock permanente</p>
+                    <div class="hero-btns">
+                        <a href="#categorias" class="btn-hero-primary">Explorar Catálogo ›</a>
                     </div>
                 </div>
             </div>
 
-
-
-            <!-- Controles del Carrusel -->
-            <button class="carousel-control prev" id="carouselPrev">‹</button>
-            <button class="carousel-control next" id="carouselNext">›</button>
-
-            <!-- Indicadores -->
-            <div class="carousel-indicators">
-                <button class="indicator active" data-slide="0"></button>
-                <button class="indicator" data-slide="1"></button>
-                <button class="indicator" data-slide="2"></button>
-            </div>
-    </section>
-
-    <!-- Sección de Categorías -->
-    <section id="categorias" class="categories-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">NUESTRAS CATEGORÍAS</h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">Explora nuestro catálogo completo de repuestos</p>
+            <!-- Slide 3 -->
+            <div class="hero-slide">
+                <div class="hero-bg"
+                    style="background-image: url('https://images.unsplash.com/photo-1558980394-dbb977039a2e?w=1600&q=80')">
+                </div>
+                <div class="hero-overlay"></div>
+                <div class="hero-overlay-bottom"></div>
+                <div class="hero-content">
+                    <div class="hero-eyebrow">
+                        <div class="hero-eyebrow-line"></div>
+                        <span>Distribución Mayorista y Minorista</span>
+                    </div>
+                    <h1 class="hero-title">Tu Moto<br><em>Siempre</em><br>en Marcha</h1>
+                    <p class="hero-subtitle">Atención personalizada · Envíos a todo el país</p>
+                    <div class="hero-btns">
+                        <a href="#contacto" class="btn-hero-primary">Contáctanos ›</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="categories-grid">
-                <!-- Categoría Motor -->
-                <a href="cilindros.html" class="category-card">
-                    <div class="category-image"
-                        style="background-image: url('https://http2.mlstatic.com/D_NQ_NP_907164-MCO75037376513_032024-O.webp');">
-                    </div>
-                    <div class="category-info">
-                        <h3 class="category-name">CILINDROS</h3>
-                        <p class="category-description">Cilindros y componentes del motor</p>
-                        <span class="category-link">Ver productos →</span>
-                    </div>
-                </a>
+        </div>
 
-                <!-- Categoría Frenos -->
-                <a href="bandas.html" class="category-card">
-                    <div class="category-image"
-                        style="background-image: url('https://osakaparts.com/wp-content/uploads/2025/09/COEFICIENTE.jpg');">
-                    </div>
-                    <div class="category-info">
-                        <h3 class="category-name">BANDAS DE FRENOS</h3>
-                        <p class="category-description">Bandas de freno de alta calidad</p>
-                        <span class="category-link">Ver productos →</span>
-                    </div>
-                </a>
+        <!-- Dots -->
+        <div class="hero-nav" id="heroDots">
+            <button class="hero-dot active" data-idx="0"></button>
+            <button class="hero-dot" data-idx="1"></button>
+            <button class="hero-dot" data-idx="2"></button>
+        </div>
 
-                <!-- Categoría Llantas -->
-                <a href="llantas.html" class="category-card">
-                    <div class="category-image"
-                        style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdC9MpK_dWEttCTCiWnpk-TQgkZc4InGUiOw&s');">
-                    </div>
-                    <div class="category-info">
-                        <h3 class="category-name">LLANTAS</h3>
-                        <p class="category-description">Neumáticos de alta calidad</p>
-                        <span class="category-link">Ver productos →</span>
-                    </div>
-                </a>
+        <!-- Arrows -->
+        <div class="hero-arrows">
+            <button class="hero-arrow" id="heroPrev">‹</button>
+            <button class="hero-arrow" id="heroNext">›</button>
+        </div>
 
-                <!-- Categoría Accesorios -->
-                <a href="aceites.html" class="category-card">
-                    <div class="category-image"
-                        style="background-image: url('https://radical-rpm.com/modules/ph_simpleblog/covers/3.jpg');">
-                    </div>
-                    <div class="category-info">
-                        <h3 class="category-name">ACEITES</h3>
-                        <p class="category-description">Aceites de motor y lubricantes especializados</p>
-                        <span class="category-link">Ver productos →</span>
-                    </div>
-                </a>
-
-                <!-- Categoría Lubricantes -->
-                <a href="bujias.html" class="category-card">
-                    <div class="category-image"
-                        style="background-image: url('https://www.c3carecarcenter.com/wp-content/uploads/2025/05/Todo-lo-que-debes-saber-sobre-bujia-NGK-BP6ES-para-tu-vehiculo-1038x576.webp');">
-                    </div>
-                    <div class="category-info">
-                        <h3 class="category-name">BUJIAS</h3>
-                        <p class="category-description">Bujías de alta calidad para motores</p>
-                        <span class="category-link">Ver productos →</span>
-                    </div>
-                </a>
-
-                <!-- Categoría Eléctrico -->
-                <a href="cadenas.html" class="category-card">
-                    <div class="category-image"
-                        style="background-image: url('https://bu-cdn.tiendup.com/business/7310/images/4014_62e6afbc64a17_large.jpg');">
-                    </div>
-                    <div class="category-info">
-                        <h3 class="category-name">CADENAS</h3>
-                        <p class="category-description">Cadenas</p>
-                        <span class="category-link">Ver productos →</span>
-                    </div>
-                </a>
-
-                <!-- Categoría Pastillas -->
-                <a href="pastillas.html" class="category-card">
-                    <div class="category-image"
-                        style="background-image: url('https://www.moto1pro.com/sites/default/files/pastillas-freno-moto-2.jpg');">
-                    </div>
-                    <div class="category-info">
-                        <h3 class="category-name">PASTILLAS DE FRENO</h3>
-                        <p class="category-description">Pastillas de freno de alta calidad</p>
-                        <span class="category-link">Ver productos →</span>
-                    </div>
-                </a>
-
-
+        <!-- Stats -->
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-num">500<span>+</span></div>
+                <div class="hero-stat-label">Referencias</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">10<span>k+</span></div>
+                <div class="hero-stat-label">Clientes</div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Contacto -->
-    <section id="contacto" class="contact-section">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2 class="section-title">¿NECESITAS AYUDA?</h2>
-                    <p class="contact-text">Nuestro equipo está listo para asesorarte y encontrar el repuesto perfecto
-                        para tu moto.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <span class="contact-icon">📍</span>
-                            <div>
-                                <strong>Ubicación</strong>
-                                <p>Cúcuta, Norte de Santander</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">⏰</span>
-                            <div>
-                                <strong>Horario</strong>
-                                <p>Lunes a Sábado: 8:00 AM - 6:00 PM</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📱</span>
-                            <div>
-                                <strong>WhatsApp</strong>
-                                <p>+57 300 123 4567</p>
-                            </div>
-                        </div>
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+        <div class="trust-inner">
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span class="trust-text">Repuestos Originales</span>
+            </div>
+            <div class="trust-sep"></div>
+            <div class="trust-item">
+                <span class="trust-icon">⚡</span>
+                <span class="trust-text">Entrega Rápida</span>
+            </div>
+            <div class="trust-sep"></div>
+            <div class="trust-item">
+                <span class="trust-icon">🔧</span>
+                <span class="trust-text">Asesoría Técnica</span>
+            </div>
+            <div class="trust-sep"></div>
+            <div class="trust-item">
+                <span class="trust-icon">🛡</span>
+                <span class="trust-text">Garantía en todos los productos</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATEGORÍAS -->
+    <section class="categories-section" id="categorias">
+        <div class="section-header">
+            <div class="section-label">
+                <div class="section-label-line"></div>
+                <span>Nuestro Catálogo</span>
+            </div>
+            <h2 class="section-title">Categorías</h2>
+        </div>
+        <div class="categories-grid">
+            <a href="aceites.html" class="cat-card">
+                <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://images.unsplash.com/photo-1558981285-6f0c5e87e6c8?w=600&q=70"
+                        alt="Motor">
+                    <div class="cat-img-overlay"></div>
+                </div>
+                <div class="cat-body">
+                    <div class="cat-name">Motor</div>
+                    <div class="cat-desc">Cilindros, pistones, juntas y más</div>
+                    <div class="cat-footer">
+                        <span class="cat-ver">Ver productos</span>
+                        <span class="cat-arrow">›</span>
                     </div>
                 </div>
-                <div class="contact-cta">
-                    <a href="https://wa.me/573001234567" target="_blank" class="btn-whatsapp-large">
-                        <span class="wa-icon">💬</span>
-                        <span class="wa-text">
-                            <span class="wa-title">Chatea con nosotros</span>
-                            <span class="wa-subtitle">Respuesta inmediata</span>
-                        </span>
-                    </a>
+            </a>
+            <a href="#" class="cat-card">
+                <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=70"
+                        alt="Frenos">
+                    <div class="cat-img-overlay"></div>
                 </div>
-            </div>
+                <div class="cat-body">
+                    <div class="cat-name">Frenos</div>
+                    <div class="cat-desc">Pastillas, discos y cables de freno</div>
+                    <div class="cat-footer">
+                        <span class="cat-ver">Ver productos</span>
+                        <span class="cat-arrow">›</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="cat-card">
+                <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=70"
+                        alt="Transmisión">
+                    <div class="cat-img-overlay"></div>
+                </div>
+                <div class="cat-body">
+                    <div class="cat-name">Transmisión</div>
+                    <div class="cat-desc">Cadenas, piñones y embragues</div>
+                    <div class="cat-footer">
+                        <span class="cat-ver">Ver productos</span>
+                        <span class="cat-arrow">›</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="cat-card">
+                <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://images.unsplash.com/photo-1558980394-dbb977039a2e?w=600&q=70"
+                        alt="Eléctrico">
+                    <div class="cat-img-overlay"></div>
+                </div>
+                <div class="cat-body">
+                    <div class="cat-name">Eléctrico</div>
+                    <div class="cat-desc">CDI, reguladores y baterías</div>
+                    <div class="cat-footer">
+                        <span class="cat-ver">Ver productos</span>
+                        <span class="cat-arrow">›</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="cat-card">
+                <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://images.unsplash.com/photo-1558980664-2506fca6f0b4?w=600&q=70"
+                        alt="Suspensión">
+                    <div class="cat-img-overlay"></div>
+                </div>
+                <div class="cat-body">
+                    <div class="cat-name">Suspensión</div>
+                    <div class="cat-desc">Amortiguadores y resortes</div>
+                    <div class="cat-footer">
+                        <span class="cat-ver">Ver productos</span>
+                        <span class="cat-arrow">›</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="cat-card">
+                <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?w=600&q=70"
+                        alt="Carrocería">
+                    <div class="cat-img-overlay"></div>
+                </div>
+                <div class="cat-body">
+                    <div class="cat-name">Carrocería</div>
+                    <div class="cat-desc">Tapas, guardabarro y espejos</div>
+                    <div class="cat-footer">
+                        <span class="cat-ver">Ver productos</span>
+                        <span class="cat-arrow">›</span>
+                    </div>
+                </div>
+            </a>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- CONTACTO -->
+    <section class="contact-strip" id="contacto">
+        <div class="contact-inner">
+            <div class="contact-left">
+                <div class="section-label">
+                    <div class="section-label-line"></div>
+                    <span>Estamos para ayudarte</span>
+                </div>
+                <h2 class="section-title">Contáctanos</h2>
+                <div class="contact-items">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-text">
+                            <strong>Dirección</strong>
+                            <span>Cúcuta, Norte de Santander</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">🕐</div>
+                        <div class="contact-item-text">
+                            <strong>Horario</strong>
+                            <span>Lun – Sáb: 8am – 6pm</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div class="contact-item-text">
+                            <strong>Teléfono</strong>
+                            <span>+57 300 123 4567</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20un%20repuesto" target="_blank"
+                class="btn-wa">
+                <svg class="wa-svg" viewBox="0 0 24 24">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+                Escribir por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="logo-text">MOTOREP</span>
-                    <p>Tu aliado en repuestos de calidad</p>
+        <div class="footer-inner">
+            <a href="index.html" class="logo-wrap" style="gap:8px;">
+                <div class="logo-icon" style="width:26px;height:26px;font-size:0.7rem;">⚙</div>
+                <div class="logo-text-wrap">
+                    <span class="logo-name" style="font-size:1.1rem;">Motorep</span>
                 </div>
-                <div class="footer-social">
-                    <p>&copy; 2026 Motorep. Todos los derechos reservados.</p>
-                </div>
-            </div>
+            </a>
+            <span class="footer-copy">© 2026 Motorep · Todos los derechos reservados</span>
         </div>
     </footer>
 
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/573001234567" target="_blank" class="whatsapp-float" id="whatsappFloat">
-        <span class="wa-pulse"></span>
-        📱
-    </a>
+    <!-- WHATSAPP FLOTANTE -->
+    <div class="wa-float">
+        <div class="wa-float-bubble">¿Necesitas un repuesto? 💬</div>
+        <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20un%20repuesto" target="_blank"
+            class="wa-float-btn" aria-label="WhatsApp">
+            <div class="wa-float-ring"></div>
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+        </a>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // Hamburger
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Hero slider
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.hero-dot');
+        let current = 0;
+        let autoTimer;
+
+        function goTo(idx) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (idx + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        function startAuto() {
+            clearInterval(autoTimer);
+            autoTimer = setInterval(() => goTo(current + 1), 5000);
+        }
+
+        document.getElementById('heroNext').addEventListener('click', () => { goTo(current + 1); startAuto(); });
+        document.getElementById('heroPrev').addEventListener('click', () => { goTo(current - 1); startAuto(); });
+        dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); startAuto(); }));
+
+        startAuto();
+    </script>
 </body>
 
 </html>
