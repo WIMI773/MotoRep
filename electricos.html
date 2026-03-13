@@ -7,23 +7,127 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ── BUSCADOR ── */
+        .search-bar-wrap {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+            position: sticky;
+            top: 64px;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .search-bar-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .search-input-wrap {
+            position: relative;
+            flex: 1;
+            max-width: 480px;
+        }
+        .search-input-wrap svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: #999;
+            stroke-width: 2;
+            pointer-events: none;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 0.65rem 1rem 0.65rem 42px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.9rem;
+            color: #222;
+            background: #fafafa;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        #searchInput:focus {
+            border-color: #1DAF53;
+            box-shadow: 0 0 0 3px rgba(29,175,83,0.1);
+            background: #fff;
+        }
+        #searchInput::placeholder { color: #aaa; }
+
+        .search-count {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #888;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .search-count span {
+            color: #1DAF53;
+            font-size: 1rem;
+        }
+
+        /* Sin resultados */
+        .no-results {
+            display: none;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .no-results h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #333;
+            margin-bottom: 0.4rem;
+        }
+        .no-results p {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* Highlight del texto buscado */
+        .highlight {
+            background: rgba(29,175,83,0.18);
+            color: #0e7a33;
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        /* Ocultar cards que no coincidan */
+        .product-card.hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navegación Principal -->
-    <nav class="navbar">
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-content">
-                <div class="logo">
-                    <a href="index.html" style="text-decoration: none;">
-                        <span class="logo-text">MOTOREP</span>
-                        <span class="logo-tagline">REPUESTOS ORIGINALES</span>
-                    </a>
-                </div>
+                <a href="index.html" class="logo" style="text-decoration:none;">
+                    <span class="logo-text">MOTOREP</span>
+                    <span class="logo-tagline">REPUESTOS ORIGINALES</span>
+                </a>
                 <button class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </button>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="nav-link">Inicio</a></li>
@@ -34,7 +138,7 @@
         </div>
     </nav>
 
-    <!-- Breadcrumb -->
+    <!-- BREADCRUMB -->
     <section class="breadcrumb">
         <div class="container">
             <nav class="breadcrumb-nav">
@@ -47,28 +151,41 @@
         </div>
     </section>
 
-    <!-- Header de Categoría -->
+    <!-- CATEGORY HEADER -->
     <section class="category-header">
         <div class="container">
             <div class="category-header-content">
-                <span class="category-icon-large">🔧</span>
-                <h1 class="category-title">ELECTRICOS</h1>
-                <p class="category-intro">Todo en repuestos electricos para tu moto</p>
+                <h1 class="category-title">MOTOR</h1>
+                <p class="category-intro">Repuestos de alta calidad para el corazón de tu moto</p>
             </div>
         </div>
     </section>
 
-    <!-- Productos -->
+    <!-- BUSCADOR -->
+    <div class="search-bar-wrap">
+        <div class="search-bar-inner">
+            <div class="search-input-wrap">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7"/>
+                    <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Buscar por nombre, modelo o categoría…" autocomplete="off">
+            </div>
+            <div class="search-count" id="searchCount">
+                <span id="countNum">6</span> productos
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTOS -->
     <section class="products-section">
         <div class="container">
             <div class="products-grid" id="productsGrid">
-                
-                <!-- Producto 1 -->
-                <article class="product-card">
+
+                <article class="product-card" data-search="cilindro fz16 motor yamaha">
                     <div class="product-image">
-                        <img src="https://gxmotor.co/cdn/shop/files/828009-1.jpg?v=1716906250" alt="cilindro fz16">
-                        <div class="product-overlay">
-                        </div>
+                        <img src="https://gxmotor.co/cdn/shop/files/828009-1.jpg?v=1716906250" alt="Cilindro FZ16">
+                        <div class="product-overlay"></div>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Cilindros</span>
@@ -80,12 +197,12 @@
                     </div>
                 </article>
 
-                <!-- Producto 2 -->
-                <article class="product-card">
+
+
+                <article class="product-card" data-search="cilindro fz 2.0 fz2 motor yamaha">
                     <div class="product-image">
-                        <img src="https://vigamotos.cl/wp-content/uploads/2024/09/Diseno-sin-titulo-15.jpg" alt="cilindro fz2.0">
-                        <div class="product-overlay">
-                        </div>
+                        <img src="https://vigamotos.cl/wp-content/uploads/2024/09/Diseno-sin-titulo-15.jpg" alt="Cilindro FZ 2.0">
+                        <div class="product-overlay"></div>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Cilindros</span>
@@ -97,29 +214,25 @@
                     </div>
                 </article>
 
-                <!-- Producto 3 -->
-                <article class="product-card">
+                <article class="product-card" data-search="cilindro fz 250 fz250 fazer xtz motor yamaha">
                     <div class="product-image">
-                        <img src="https://bikercompany.cl/22577-medium_default/kit-cilindro-fz-25-fazer-250-xtz-250-yamaha-im.jpg" alt="cilindro fz250">
-                        <div class="product-overlay">
-                        </div>
+                        <img src="https://bikercompany.cl/22577-medium_default/kit-cilindro-fz-25-fazer-250-xtz-250-yamaha-im.jpg" alt="Cilindro FZ 250">
+                        <div class="product-overlay"></div>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Cilindros</span>
-                        <h3 class="product-name">Cilindro FZ 2.50 </h3>
-                        <p class="product-description">Cilindro para motos FZ 2.50</p>
+                        <h3 class="product-name">Cilindro FZ 250</h3>
+                        <p class="product-description">Cilindro para motos FZ 250</p>
                         <div class="product-footer">
                             <span class="product-price">$450.000</span>
                         </div>
                     </div>
                 </article>
 
-                <!-- Producto 4 -->
-                <article class="product-card">
+                <article class="product-card" data-search="cilindro dt 125 dt125 motor yamaha enduro">
                     <div class="product-image">
-                        <img src="https://http2.mlstatic.com/D_NQ_NP_983377-MCO73194514378_122023-O.webp" alt="cilindro fz16">
-                        <div class="product-overlay">
-                        </div>
+                        <img src="https://http2.mlstatic.com/D_NQ_NP_983377-MCO73194514378_122023-O.webp" alt="Cilindro DT 125">
+                        <div class="product-overlay"></div>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Cilindros</span>
@@ -131,12 +244,10 @@
                     </div>
                 </article>
 
-                <!-- Producto 5 -->
-                <article class="product-card">
+                <article class="product-card" data-search="cilindro crypton 115 motor yamaha">
                     <div class="product-image">
-                        <img src="https://mapachestore.co/cdn/shop/files/f7d61d43-2fc3-4173-8683-20b163cd7e43.jpg?v=1755003599" alt="cilindro fz16">
-                        <div class="product-overlay">
-                        </div>
+                        <img src="https://mapachestore.co/cdn/shop/files/f7d61d43-2fc3-4173-8683-20b163cd7e43.jpg?v=1755003599" alt="Cilindro Crypton 115">
+                        <div class="product-overlay"></div>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Cilindros</span>
@@ -148,12 +259,10 @@
                     </div>
                 </article>
 
-                <!-- Producto 6 -->
-               <article class="product-card">
+                <article class="product-card" data-search="cilindro crypton 115 fi inyeccion motor yamaha">
                     <div class="product-image">
-                        <img src="https://imagen-item.btwholding.com/imagenes-item/estatica/332812/1_tq94cn2uos5v5y2nc4a3_orig.jpg" alt="cilindro fz16">
-                        <div class="product-overlay">
-                        </div>
+                        <img src="https://imagen-item.btwholding.com/imagenes-item/estatica/332812/1_tq94cn2uos5v5y2nc4a3_orig.jpg" alt="Cilindro Crypton 115 Fi">
+                        <div class="product-overlay"></div>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Cilindros</span>
@@ -165,18 +274,40 @@
                     </div>
                 </article>
 
+                <article class="product-card" data-search="cilindro fz16 motor yamaha">
+                    <div class="product-image">
+                        <img src="https://mapachestore.co/cdn/shop/files/cb84242c-6757-4ae3-a92b-25bc8908afc6.jpg?v=1756414666" alt="Piston FZ16">
+                        <div class="product-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Piistones</span>
+                        <h3 class="product-name">Piston FZ16</h3>
+                        <p class="product-description">Piston para motos FZ16</p>
+                        <div class="product-footer">
+                            <span class="product-price">$50.000</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Mensaje sin resultados -->
+                <div class="no-results" id="noResults">
+                    <div class="no-results-icon">🔍</div>
+                    <h3>Sin resultados</h3>
+                    <p>No encontramos productos que coincidan con "<strong id="noResultsQuery"></strong>"</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Botón Volver -->
+    <!-- VOLVER -->
     <section class="back-section">
         <div class="container">
             <a href="index.html#categorias" class="btn btn-secondary">← Volver a Categorías</a>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -191,12 +322,62 @@
         </div>
     </footer>
 
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/573001234567" target="_blank" class="whatsapp-float" id="whatsappFloat">
+    <!-- WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20un%20repuesto" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
         <span class="wa-pulse"></span>
-        📱
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
     </a>
 
-    <script src="script.js"></script>
+    <script>
+        // ── Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // ── Hamburger
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('open');
+        });
+
+        // ── Buscador
+        const searchInput  = document.getElementById('searchInput');
+        const cards        = document.querySelectorAll('.product-card');
+        const noResults    = document.getElementById('noResults');
+        const noResultsQ   = document.getElementById('noResultsQuery');
+        const countNum     = document.getElementById('countNum');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            let visible = 0;
+
+            cards.forEach(card => {
+                // Busca en data-search + nombre + descripción + categoría
+                const haystack = [
+                    card.dataset.search || '',
+                    card.querySelector('.product-name')?.textContent || '',
+                    card.querySelector('.product-description')?.textContent || '',
+                    card.querySelector('.product-category')?.textContent || ''
+                ].join(' ').toLowerCase();
+
+                const match = query === '' || haystack.includes(query);
+                card.classList.toggle('hidden', !match);
+                if (match) visible++;
+            });
+
+            // Contador
+            countNum.textContent = visible;
+
+            // Mensaje vacío
+            if (visible === 0 && query !== '') {
+                noResults.style.display = 'block';
+                noResultsQ.textContent = searchInput.value.trim();
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
 </html>
