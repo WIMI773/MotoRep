@@ -168,7 +168,7 @@ a  { color: inherit; }
    CATEGORY HEADER
 ════════════════════════════════════════ */
 .category-header {
-    background: var(--dark);
+    background: white;
     padding: 1.5rem 0 1.2rem;
     position: relative;
     overflow: hidden;
@@ -192,7 +192,7 @@ a  { color: inherit; }
     font-weight: 900;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--white);
+    color: black;
     line-height: 1;
 }
 .category-title::after {
@@ -206,7 +206,7 @@ a  { color: inherit; }
 .category-intro {
     margin-top: 0.75rem;
     font-size: 1rem;
-    color: rgba(255,255,255,0.55);
+    color: rgb(0, 0, 0);
     font-weight: 300;
     max-width: 520px;
     letter-spacing: 0.3px;
